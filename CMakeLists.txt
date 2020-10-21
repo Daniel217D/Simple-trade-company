@@ -5,6 +5,8 @@ file(GLOB files
         "main.cpp"
         "libraries/*.h"
         "libraries/*.cpp"
+        "libraries/**/*.h"
+        "libraries/**/*.cpp"
         )
 
 
