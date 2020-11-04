@@ -1,9 +1,10 @@
 #pragma once
 
 #include "helpers/types.h"
-#include "sellers/Seller.h"
 #include "sellers/SellerShop.h"
 #include "sellers/SellerStorage.h"
+#include "clients/Client.h"
+
 #include <vector>
 #include <string>
 
@@ -13,19 +14,20 @@ using Cmp::dayTime;
 
 class Company {
 private:
-    unsigned int money;
+    int money;
     dayTime dt;
-    vector<Seller> sellers;
+    vector<SellerShop> seller_shops;
+    vector<SellerStorage> seller_storages;
 public:
-    explicit Company(unsigned int _money, unsigned int shops_amount, unsigned int storage_amount) {
+    explicit Company(int _money, unsigned int shops_amount, unsigned int storage_amount) {
         money = _money;
 
         for (unsigned int i = 0; i < shops_amount; ++i) {
-            sellers.push_back(SellerShop(to_string(i)));
+            seller_shops.emplace_back(to_string(i));
         }
         
         for (unsigned int i = 0; i < storage_amount; ++i) {
-            sellers.push_back(SellerStorage(to_string(i)));
+            seller_storages.emplace_back(to_string(i));
         }
     }
 
@@ -33,8 +35,18 @@ public:
         return money;
     }
 
-    void trade() {
+    void trade(vector<Client> clients) {
+        for (const auto & client : clients) {
+            trade(client);
+        }
+    }
 
+    void trade(Client client) {
+
+    }
+
+    bool isBankrupt() {
+        return money <= 0;
     }
 
     void changeTime() {
