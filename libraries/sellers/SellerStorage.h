@@ -19,5 +19,9 @@ public:
         money = 0;
         return money;
     }
+
+    unsigned int event() override {
+
+    }
 };
 

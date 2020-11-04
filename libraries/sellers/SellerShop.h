@@ -21,5 +21,9 @@ public:
             return money;
         }
     }
+
+    unsigned int event() override {
+
+    }
 };
 

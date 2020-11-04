@@ -21,5 +21,6 @@ protected:
 
 public:
     virtual unsigned int getMoney(dayTime dt) = 0;
+    virtual unsigned int event() = 0;
 };
 
