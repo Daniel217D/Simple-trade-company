@@ -18,7 +18,7 @@ public:
         for (int i = productType::apple; i <= productType::carrot; i++) {
             demand[i] = rand() % 10 - 2;
             purchase_price[i] = 8 + rand() % 5;
-            sale_price[i] = 8 + demand[i];
+            sale_price[i] = 10 + demand[i];
         }
     }
 
