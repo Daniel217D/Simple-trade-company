@@ -17,6 +17,7 @@ class Company {
 private:
     int money;
     dayTime dt;
+    unsigned int day = 1;
     vector<SellerShop> seller_shops;
     vector<SellerStorage> seller_storages;
 
@@ -42,17 +43,24 @@ public:
         }
     }
 
-    unsigned int getMoney() {
-        return money;
+    string getDayTime() {
+        switch (dt) {
+            case dayTime::morning:
+                return "Утро";
+            case dayTime::day :
+                return "День";
+            case dayTime::evening:
+                return "Вечер";
+        }
     }
 
-    void trade(const vector<Client>& clients) {
-        for (const auto & client : clients) {
+    void trade(vector<Client>& clients) {
+        for (auto & client : clients) {
             trade(client);
         }
     }
 
-    void trade(Client client) {
+    void trade(Client &client) {
         if(client.get_type() == clientType::wholesale) {
             seller_shops[random() % seller_shops.size()].buy(client);
         } else {
@@ -83,11 +91,14 @@ public:
             dt = dayTime::evening;
         } else if(dt == dayTime::evening) {
             dt = dayTime::morning;
+            day++;
         }
     }
 
     string toString() {
         string res;
+        res += "День: " + to_string(day) + "\n";
+        res += "Время: " + getDayTime() + "\n";
         res += "Бюджет: " + to_string(money) + "\n";
         for (auto & shop : seller_shops) {
             res += shop.toString() + "\n";
