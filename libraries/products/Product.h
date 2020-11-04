@@ -1,12 +1,12 @@
 #pragma once
 
+#include "../helpers/types.h"
 #include <iostream>
 
 using std::string;
+using Cmp::productType;
 
 class Product {
-    unsigned int purchase_price;
-    unsigned int sale_price;
     unsigned int amount;
-    float demand;
+    productType type;
 };
