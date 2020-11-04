@@ -21,15 +21,13 @@ public:
         }
     }
 
-    unsigned int collectMoney(dayTime dt) override {
-        unsigned int temp = money;
-        money = 0;
-        return temp;
-    }
+     int collectMoney(dayTime dt) override {
+         event();
 
-    unsigned int event() override {
-
-    }
+         int temp = money;
+         money = 0;
+         return temp;
+     }
 
     void restore() {
         int change;

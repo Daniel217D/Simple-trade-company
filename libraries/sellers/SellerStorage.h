@@ -18,23 +18,22 @@ public:
         }
     }
 
-    unsigned int collectMoney(dayTime dt) override {
+    int collectMoney(dayTime dt) override {
+        event();
+
         if (dt == dayTime::evening) {
-            unsigned int temp = money;
+            int temp = money;
             money = 0;
             return temp;
         }
-    }
-
-    unsigned int event() override {
-
+        return 0;
     }
 
     void restore() {
         int change;
-        for (auto & product : products) {
+        for (auto &product : products) {
             change = 10 + rand() % 10;
-            if(change > product.get_max_amount() - product.get_amount()) {
+            if (change > product.get_max_amount() - product.get_amount()) {
                 change = product.get_max_amount() - product.get_amount();
             }
             product.change_amount(change);

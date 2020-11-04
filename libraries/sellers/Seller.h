@@ -7,6 +7,7 @@
 #include "../products/ProductManager.h"
 #include "../clients/Client.h"
 
+using std::cout;
 using std::string;
 using std::to_string;
 using std::vector;
@@ -23,12 +24,30 @@ protected:
     Cmp::sellerType type;
 
 public:
-    virtual unsigned int collectMoney(dayTime dt) = 0;
-    virtual unsigned int event() = 0;
+    virtual int collectMoney(dayTime dt) = 0;
     virtual void restore() = 0;
 
     string get_name() {
         return name;
+    }
+
+    virtual unsigned int event() {
+        if (0 == rand() % 100) {
+            if (money > 0) {
+                money = 0;
+                cout << name + " - украдены деньги!";
+            }
+        } else if (0 == rand() % 100) {
+            if(money > 0) {
+                money = 0;
+            }
+
+            for (auto &product : products) {
+                product.change_amount(-product.get_amount());
+            }
+
+            cout << name + " - ограблен!";
+        }
     }
 
     void buy (Client client) {
@@ -37,12 +56,16 @@ public:
             return;
         }
 
-        unsigned int price = ProductManager::get_purchase_price(buyProduct.get_type());
+        unsigned int price = ProductManager::get_sale_price(buyProduct.get_type());
         unsigned int amount = 1 + (buyProduct.get_amount() > 1 ? rand() % (buyProduct.get_amount() - 1) : 0);
         unsigned int clientMoney = client.get_money();
 
-        if(amount * price < clientMoney) {
+        if(amount * price > clientMoney) {
             amount = clientMoney / price;
+        }
+
+        if(buyProduct.get_amount() < amount) {
+            amount = buyProduct.get_amount();
         }
 
         buyProduct.change_amount(-amount);
