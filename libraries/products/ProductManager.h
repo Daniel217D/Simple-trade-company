@@ -4,7 +4,7 @@
 #include <map>
 
 using std::map;
-using Cmp::productType ;
+using Cmp::productType;
 
 class ProductManager {
 private:
