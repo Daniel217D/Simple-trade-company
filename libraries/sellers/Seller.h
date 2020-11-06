@@ -35,7 +35,7 @@ public:
         if (0 == rand() % 100) {
             if (money > 0) {
                 money = 0;
-                cout << name + " - украдены деньги!";
+                cout << name + " - украдены деньги!\n";
             }
         } else if (0 == rand() % 100) {
             if(money > 0) {
